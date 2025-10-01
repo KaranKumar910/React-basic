@@ -1,34 +1,38 @@
-import React,{useState,useEffect} from "react"
+import React , {useState,useEffect} from "react";
 
- const Home = () =>{
-    const [count,setcount] = useState(() => {
-        return Number(localStorage.getItem('count')) || 0;
-    })
-    const handleClick = () => {
-        setcount(count + 1);
-    }
+const Home = () =>{
+    const [count, setCount] = useState(() => {
+        const saved = localStorage.getItem('count')
+        return saved ? parseInt(saved) : 0
+    });
+
     useEffect(() => {
         localStorage.setItem('count',count)
-    },[count])
-    
-    return (
-        <>
-        {/* functional update */}
-            <button onClick={ () => setcount(precount => precount + 1) }>
-                function count 
-            </button>
+    }, [count])
+     
+    const counthandler = () => {
+            setCount(count + 1);
+    }
 
-        {/* handler function */}
-            <button onClick={handleClick}>
-                handleClick
+    const reset = () => {
+        setCount(0)
+    }
+    return(
+        <>
+            {/* functional Click */}
+            <button onClick={() => setCount((pre) => pre + 1)}>
+                functional Click
             </button>
-            <button onClick={() => setcount(0)}>
+            {/* Count handler function */}
+            <button onClick={counthandler}>
+                handler functional Click
+            </button>
+            <button onClick={reset}>
                 Reset
             </button>
             <p>{count}</p>
-            <h2>This is the home page </h2>
+            <h2>Hii Karan, This is the home. So here i can create the you exact counter code</h2>
         </>
     )
- }
-
- export default Home
+}
+export default Home
